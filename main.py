@@ -147,6 +147,10 @@ async def sent_messages():
     data = fetch_data()
     if data and 'aaData' in data:
         for row in data['aaData']:
+            if len(row) < 6:  # কলামের সংখ্যা কম হলে স্কিপ
+                logging.warning(f"Skipping invalid row: {row}")
+                continue
+
             date = str(row[0]).strip()
             number = str(row[2]).strip()
             full_range = str(row[1]).strip()
